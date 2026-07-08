@@ -1,0 +1,185 @@
+---
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
+const title = 'How Kiln Collective was built — the guide';
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content="Build notes for Kiln Collective: SVG feTurbulence paper grain, hand-drawn linework with scroll-triggered draw-on, and shipping an Astro site to GitHub Pages from /docs." />
+<meta name="theme-color" content="#f3e9dd" />
+<meta name="color-scheme" content="light" />
+<link rel="icon" href={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M5 26 Q4 9 15 8 Q26 9 25 26 Z M11 26 q0 -8 4 -8 q4 0 4 8' fill='none' stroke='%23c65d3b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E`} />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,100,1;1,9..144,300..900,100,1&family=Work+Sans:ital,wght@0,300..600;1,400..500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f3e9dd;--card:#f8f1e6;--ink:#2a1c14;--umber:#7a4a2e;--clay:#c65d3b;--clay-deep:#a04527;
+  --sage-deep:#5a6b4d;--line:rgba(42,28,20,.12);--max:760px;--ease:cubic-bezier(.65,.05,.18,1);
+  --wobble:255px 18px 225px 20px / 20px 225px 18px 255px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif;line-height:1.66;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.55' numOctaves='2' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .29 0 0 0 0 .21 0 0 0 0 .16 0 0 0 .14 0'/%3E%3C/filter%3E%3Crect width='280' height='280' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size:280px 280px}
+a{color:var(--clay-deep)}a:hover{text-decoration-thickness:2px}
+::selection{background:var(--clay);color:#fdf6ec}
+.wrap{max-width:var(--max);margin:0 auto;padding:clamp(30px,6vw,84px) clamp(18px,5vw,32px)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:3.2rem;
+  font-family:"DM Mono",monospace;font-size:.72rem;letter-spacing:.12em;color:var(--umber)}
+.top a{color:var(--umber);text-decoration:none}.top a:hover{color:var(--clay-deep)}
+.ey{font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--clay-deep);display:block;margin-bottom:2.2rem;font-weight:500}
+h1{font-family:"Fraunces",Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:440;
+  font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.04;letter-spacing:-.015em;margin-bottom:.7rem}
+h1 em{color:var(--clay)}
+.sub{color:var(--umber);font-size:1.1rem;margin-bottom:3rem;max-width:56ch}
+h2{font-family:"Fraunces",Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:500;
+  font-size:clamp(1.5rem,3.6vw,2rem);margin:3rem 0 1rem;letter-spacing:-.01em}
+p{color:var(--umber);margin:1rem 0}
+strong{color:var(--ink);font-weight:600}
+ul{margin:1rem 0 1rem 1.2rem;color:var(--umber)}li{margin:.45rem 0}
+pre{background:#2a1c14;color:#f0e5d6;border-radius:14px;padding:18px 20px;overflow-x:auto;margin:1.3rem 0;
+  font-family:"DM Mono",monospace;font-size:.82rem;line-height:1.7}
+code{font-family:"DM Mono",monospace;font-size:.88em;color:var(--clay-deep)}
+pre code{color:inherit}
+figure{margin:1.8rem 0}
+figure img{width:100%;height:auto;border-radius:14px;display:block}
+figcaption{font-family:"DM Mono",monospace;font-size:.68rem;color:var(--umber);margin-top:.7rem;letter-spacing:.06em}
+.rule{height:12px;margin:3rem 0;color:var(--clay);overflow:visible}
+.back{display:inline-block;margin-top:2.6rem;font-family:"DM Mono",monospace;font-size:.8rem;
+  border:1.5px solid var(--ink);border-radius:var(--wobble);padding:10px 20px;color:var(--ink);
+  text-decoration:none;transition:background .4s var(--ease),color .4s var(--ease)}
+.back:hover{background:var(--ink);color:var(--bg)}
+a:focus-visible{outline:2.5px solid var(--clay-deep);outline-offset:3px;border-radius:6px}
+.fine{color:var(--umber);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <a href={base}>← Kiln Collective</a>
+    <span>THE GUIDE · HOW IT WAS BUILT</span>
+  </div>
+
+  <span class="ey">Design showcase · build notes</span>
+  <h1>Paper, wobble, and <em>no hurry.</em></h1>
+  <p class="sub">Kiln Collective is a warm light-theme marketplace for a fictional ceramics co-op,
+    built with Astro and exactly one photograph. Everything else — the vessels, the frames, the
+    underlines, the maker's marks — is hand-drawn-style SVG that draws itself in as you scroll.</p>
+
+  <figure>
+    <img src={`${base}assets/hero.jpg`} width="1264" height="848" loading="lazy" decoding="async"
+      alt="Terracotta and cream ceramic vessels arranged on linen in warm side light — the site's only photograph" />
+    <figcaption>THE ONLY RASTER IMAGE ON THE SITE · BATCH KC-041 · 3:2 · COMPRESSED JPEG</figcaption>
+  </figure>
+
+  <h2>The idea</h2>
+  <p>A ceramics co-op sells two things: objects with fingerprints in them, and the feeling of a
+    room where nobody is in a rush. So the site is built around <strong>tactility and patience</strong>.
+    The background is cream paper with real tooth, every border and underline wobbles like it was
+    inked freehand, prices sit in a typewriter mono like a shop ledger, and motion runs on a slow
+    "kiln ramp" curve — nothing snaps, everything settles. The marketplace patterns underneath are
+    borrowed from shipped products (Etsy's maker-attributed product cards, Airbnb Experiences'
+    matter-of-fact "3 spots left"), then dressed in the studio's own hand.</p>
+
+  <h2>The stack — why Astro</h2>
+  <ul>
+    <li><strong>Astro 5, zero client framework.</strong> A shop-front like this is content: six
+      pieces, three classes, four makers. In Astro those live as typed arrays in frontmatter and
+      render to plain HTML at build time — the shipped page carries one small script for reveals
+      and counters, nothing else.</li>
+    <li><strong>Components without a runtime.</strong> The vessel illustrations and maker's marks
+      are <code>.astro</code> components — reusable at author time, free at run time. A growing
+      catalog would graduate the piece data into Astro content collections without touching the
+      templates.</li>
+    <li><strong>Fraunces / Work Sans / DM Mono.</strong> Fraunces with its <code>SOFT</code> axis
+      maxed and <code>WONK</code> on gives the display type a thrown-not-machined feel; Work Sans
+      stays out of the way; DM Mono does the ledger work — prices, batch numbers, cone charts.</li>
+  </ul>
+
+  <h2>Signature technique #1 — paper you can almost feel</h2>
+  <p>The grain is a single SVG <code>feTurbulence</code> tile, inlined as a data URI and fixed over
+    the whole page with <code>mix-blend-mode: multiply</code>. No image request, no canvas, no
+    animation loop — it's just noise math the browser rasterizes once:</p>
+  <pre><code>.grain &#123;
+  position: fixed; inset: 0; pointer-events: none;
+  opacity: .4; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,\
+    &lt;svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'&gt;\
+      &lt;filter id='p'&gt;\
+        &lt;feTurbulence type='fractalNoise' baseFrequency='.55'\
+                      numOctaves='2' seed='7' stitchTiles='stitch'/&gt;\
+        &lt;feColorMatrix values='0 0 0 0 .29  0 0 0 0 .21\
+                               0 0 0 0 .16  0 0 0 .14 0'/&gt;\
+      &lt;/filter&gt;\
+      &lt;rect width='280' height='280' filter='url(%23p)'/&gt;\
+    &lt;/svg&gt;");
+&#125;</code></pre>
+  <p>The <code>feColorMatrix</code> tints the noise to warm umber and knocks its alpha down to 14%,
+    so at 40% layer opacity the texture reads as paper tooth, not dirt. <code>stitchTiles</code>
+    keeps the 280px tile seamless.</p>
+
+  <h2>Signature technique #2 — linework that draws itself</h2>
+  <p>Every vessel, frame, arrow and squiggle is a hand-written SVG path with deliberate asymmetry
+    — curves that overshoot a little, like a loaded brush. Each visible stroke carries
+    <code>pathLength="1"</code>, which normalizes its length so CSS can animate the draw without
+    JavaScript ever measuring anything:</p>
+  <pre><code>&lt;path pathLength="1" class="s" d="M83 40 Q100 33 117 41" …/&gt;
+
+.js .draw .s        &#123; stroke-dasharray: 1; stroke-dashoffset: 1; &#125;
+.js .draw.is-in .s  &#123; stroke-dashoffset: 0;
+                      transition: stroke-dashoffset 1.5s var(--ease); &#125;</code></pre>
+  <p>One IntersectionObserver adds <code>.is-in</code> when a drawing scrolls into view and hands
+    each stroke a 160ms stagger, so a moon jar appears rim → body → glaze line → speckles, the
+    order a potter would make it. The easing is the site's signature
+    <code>cubic-bezier(.65,.05,.18,1)</code> — a slow ramp and a gentle settle, like a firing
+    schedule. With <code>prefers-reduced-motion</code>, the dashes are stripped entirely and every
+    stroke arrives complete.</p>
+
+  <h2>Details that matter</h2>
+  <ul>
+    <li><strong>The wobble is CSS too.</strong> Buttons, badges and pills use the uneven-corner
+      trick — <code>border-radius: 255px 18px 225px 20px / 20px 225px 18px 255px</code> — so even
+      form controls look inked, not stamped.</li>
+    <li><strong>Contrast did the seating chart.</strong> Terracotta on cream is only 3.4:1, so
+      <code>--clay</code> is reserved for large display accents and linework; anything small gets
+      <code>--clay-deep</code> (4.9:1), umber (6.1:1) or ink. Same split for sage.</li>
+    <li><strong>Scarcity without alarm.</strong> Class cards show seats as little hand-drawn dots
+      — filled means taken — and the sold-out state opens a waitlist instead of greying out.</li>
+    <li><strong>Progressive enhancement.</strong> A <code>.js</code> class gates every reveal;
+      without JavaScript the page renders complete, drawings included.</li>
+  </ul>
+
+  <h2>Ship it on GitHub Pages</h2>
+  <p>Astro builds static HTML, so Pages can serve it straight from the repo — no Actions workflow
+    needed. Two config lines do the work:</p>
+  <pre><code>// astro.config.mjs
+export default defineConfig(&#123;
+  site: 'https://bswxyz.github.io',
+  base: '/kiln-collective',   // project-site path prefix
+  outDir: './docs',           // Pages serves main + /docs
+&#125;);</code></pre>
+  <p>Every internal link and asset goes through <code>import.meta.env.BASE_URL</code> so nothing
+    404s under the <code>/kiln-collective/</code> prefix, a <code>.nojekyll</code> in
+    <code>public/</code> stops Pages from mangling the output, and deploying is:</p>
+  <pre><code>npm run build                      # emits ./docs
+git add -A &amp;&amp; git commit -m "batch KC-041"
+gh repo create bswxyz/kiln-collective --public --source . --push
+gh api --method POST /repos/bswxyz/kiln-collective/pages \
+  -f 'source[branch]=main' -f 'source[path]=/docs'</code></pre>
+
+  <svg class="rule" viewBox="0 0 220 12" aria-hidden="true"><path d="M3 8 Q20 2 40 7 T80 7 T120 7 T160 7 T200 7 Q210 7 217 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+  <p class="fine">Kiln Collective is a design-showcase concept — the shop, classes, makers and
+    numbers are fictional, and there's no cart or booking backend. The repository README maps
+    exactly what a production version would need.</p>
+  <a class="back" href={base}>← Back to the studio</a>
+</div>
+</body>
+</html>

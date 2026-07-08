@@ -1,0 +1,361 @@
+---
+import '../styles/global.css';
+import Vessel from '../components/Vessel.astro';
+import MakerMark from '../components/MakerMark.astro';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : rawBase + '/';
+
+const pieces = [
+  { kind: 'moonjar', name: 'Moon Jar №14', maker: 'Amara Osei', price: '$240',
+    badge: 'One of one', badgeClass: 'badge-one', batch: 'KC-041·03',
+    alt: 'Hand-drawn line illustration of a large round moon jar with a sage glaze line across its shoulder' },
+  { kind: 'mugs', name: 'Morning Mugs, pair', maker: 'Theo Lindqvist', price: '$64',
+    badge: 'Small batch ×8', badgeClass: 'badge-batch', batch: 'KC-041·07',
+    alt: 'Hand-drawn line illustration of two stout mugs with generous handles' },
+  { kind: 'pitcher', name: 'Terracotta Pitcher', maker: 'June Nakamura', price: '$96',
+    badge: 'One of one', badgeClass: 'badge-one', batch: 'KC-041·11',
+    alt: 'Hand-drawn line illustration of a tall pitcher with a pulled spout and looped handle' },
+  { kind: 'bowls', name: 'Nesting Bowls ×3', maker: 'Silas Marsh', price: '$118',
+    badge: 'Small batch ×6', badgeClass: 'badge-batch', batch: 'KC-041·14',
+    alt: 'Hand-drawn line illustration of three bowls nested inside one another' },
+  { kind: 'budvase', name: 'Bud Vase, sage', maker: 'Amara Osei', price: '$52',
+    badge: 'Small batch ×12', badgeClass: 'badge-batch', batch: 'KC-041·19',
+    alt: 'Hand-drawn line illustration of a narrow-necked bud vase holding a single sprig' },
+  { kind: 'plates', name: 'Supper Plates ×4', maker: 'Theo Lindqvist', price: '$142',
+    badge: 'One of one', badgeClass: 'badge-one', batch: 'KC-041·22',
+    alt: 'Hand-drawn line illustration of four supper plates stacked side-on' },
+];
+
+const classes = [
+  { name: 'Wheel One: First Throw', date: 'Sat · Jul 18', time: '10:00–13:00',
+    teacher: 'June Nakamura', level: 'Beginner', levelClass: 'level-beginner',
+    price: '$85', seats: 8, taken: 5, cta: 'Save a seat',
+    desc: 'Three hours, one lump of clay, and the strange first joy of centering. You will leave with two pots and very short fingernails.' },
+  { name: 'Glaze Chemistry, Gently', date: 'Thu · Jul 23', time: '18:30–21:00',
+    teacher: 'Silas Marsh', level: 'Intermediate', levelClass: 'level-intermediate',
+    price: '$70', seats: 10, taken: 5, cta: 'Save a seat',
+    desc: 'Why celadon crackles and tenmoku runs — the chemistry of the glaze wall without the chalkboard. Bring a bisqued piece to dip.' },
+  { name: 'Moon Jar Weekend', date: 'Sat–Sun · Aug 8–9', time: '10:00–16:00 both days',
+    teacher: 'Amara Osei', level: 'All levels', levelClass: 'level-all',
+    price: '$210', seats: 6, taken: 6, cta: 'Join the waitlist',
+    desc: 'Two days chasing the roundest form there is. Thrown in halves on Saturday, joined and coaxed true on Sunday.' },
+];
+
+const makers = [
+  { mark: 'spiral', name: 'Amara Osei', spec: 'Moon jars & big-bellied forms',
+    bio: 'Throws the largest forms in the studio and still calls every one of them a practice piece. Ten years at the wheel, four at this one.',
+    pieces: 'KC-041·03 · 19' },
+  { mark: 'strata', name: 'Theo Lindqvist', spec: 'Tableware you can drop once',
+    bio: 'Believes a mug should feel like a handshake. Throws in runs of eight so nobody has to be precious about the everyday.',
+    pieces: 'KC-041·07 · 22' },
+  { mark: 'moonwave', name: 'June Nakamura', spec: 'Pitchers, pourers & slips',
+    bio: 'Teaches our beginner wheel nights. Her pitchers pour like they mean it — no dribble, no drama, a spout you can trust.',
+    pieces: 'KC-041·11' },
+  { mark: 'kilnbrick', name: 'Silas Marsh', spec: 'Glaze chemistry & kiln tending',
+    bio: 'Keeps the cone charts, blends the studio glazes, and sits with every firing like it might get lonely. It might.',
+    pieces: 'KC-041·14' },
+];
+
+const title = 'Kiln Collective — thrown, glazed, and fired twelve minutes from your door';
+const description = 'A cooperative ceramics studio and small-batch marketplace. Handmade pieces by our twenty-three members, wheel-throwing classes, and studio benches to rent.';
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script is:inline>document.documentElement.classList.add('js')</script>
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="theme-color" content="#f3e9dd" />
+<meta name="color-scheme" content="light" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={`https://bswxyz.github.io${base}assets/hero.jpg`} />
+<link rel="icon" href={`data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath d='M5 26 Q4 9 15 8 Q26 9 25 26 Z M11 26 q0 -8 4 -8 q4 0 4 8' fill='none' stroke='%23c65d3b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E`} />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,100,1;1,9..144,300..900,100,1&family=Work+Sans:ital,wght@0,300..600;1,400..500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#shop">Skip to the shop</a>
+
+<header class="nav">
+  <a class="brand" href={base} aria-label="Kiln Collective home">
+    <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 26 Q4 9 15 8 Q26 9 25 26 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 26 q0 -8 4 -8 q4 0 4 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <span>Kiln Collective</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#shop">Shop</a>
+    <a href="#classes">Classes</a>
+    <a href="#makers">Makers</a>
+    <a href="#studio">Studio</a>
+    <a href={`${base}guide/`}>Guide</a>
+    <a class="nav-cta" href="#visit">Visit us</a>
+  </nav>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <p class="eyebrow reveal">A cooperative ceramics studio · est. 2019 · batch-fired</p>
+      <h1 class="hero-title">
+        <span class="line"><span>Thrown, glazed, and fired</span></span>
+        <span class="line"><span><em>twelve minutes</em></span></span>
+        <span class="line"><span>from your door.</span></span>
+      </h1>
+    </div>
+    <div class="hero-grid wrap">
+      <div>
+        <p class="hero-sub reveal">Kiln Collective is twenty-three potters sharing four kilns in a
+          former print shop. We sell what we make in small numbered batches, teach the wheel to
+          anyone with clean-ish hands, and rent benches to people who can't stop. Nothing here is
+          mass-anything.</p>
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="#shop">Browse batch KC-041</a>
+          <a class="btn btn-ghost" href="#classes">Learn the wheel →</a>
+        </div>
+      </div>
+      <div class="plate-wrap reveal">
+        <figure class="plate">
+          <svg class="plate-frame draw" viewBox="0 0 620 420" preserveAspectRatio="none" aria-hidden="true">
+            <path pathLength="1" class="s" vector-effect="non-scaling-stroke" d="M14 22 Q160 6 320 14 Q480 22 606 12 Q614 110 606 212 Q600 320 608 408 Q460 398 310 406 Q160 414 12 404 Q20 300 14 200 Q8 100 14 22 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <div class="plate-photo">
+            <img src={`${base}assets/hero.jpg`} width="1264" height="848" fetchpriority="high" decoding="async"
+              alt="Terracotta and cream ceramic vessels — a jug, jars and stacked bowls — arranged on a linen cloth in warm side light" />
+          </div>
+          <span class="plate-note">
+            <svg class="draw" viewBox="0 0 44 26" aria-hidden="true"><path pathLength="1" class="s" d="M42 4 Q24 20 8 15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path pathLength="1" class="s" d="M15 9 L7 15 L16 19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            still warm from kiln №2
+          </span>
+          <figcaption class="plate-meta">
+            <span>BATCH KC-041</span><span>CONE 6</span><span>SPECKLED STONEWARE</span><span>FIRED JUL 04</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SHOP ============ -->
+  <section class="shop" id="shop">
+    <div class="section-head">
+      <span class="kicker reveal">[ The shop · batch KC-041 ]</span>
+      <h2 class="reveal">Six pieces this batch.<br/>When they're gone, we throw more.</h2>
+      <svg class="squig draw" viewBox="0 0 220 12" aria-hidden="true"><path pathLength="1" class="s" d="M3 8 Q20 2 40 7 T80 7 T120 7 T160 7 T200 7 Q210 7 217 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <p class="lede reveal">Every piece is thrown by a member, numbered on the foot, and photographed
+        the morning it leaves the kiln. One of one means exactly that — when someone buys it,
+        it's theirs and it's gone.</p>
+    </div>
+    <div class="shop-grid">
+      {pieces.map((p, i) => (
+        <article class="piece reveal" style={`--d:${(i % 3) * 0.12}s`}>
+          <div class="piece-fig">
+            <Vessel kind={p.kind} title={p.alt} />
+            <span class={`badge ${p.badgeClass}`}>{p.badge}</span>
+          </div>
+          <div>
+            <h3 class="piece-name serif">{p.name}</h3>
+            <p class="piece-maker">by <a href="#makers">{p.maker}</a></p>
+          </div>
+          <div class="piece-foot">
+            <span class="piece-price">{p.price}</span>
+            <span class="piece-batch">{p.batch}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="shop-note reveal">
+      <svg class="draw" viewBox="0 0 44 26" aria-hidden="true"><path pathLength="1" class="s" d="M2 6 Q20 22 38 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path pathLength="1" class="s" d="M30 10 L39 16 L31 21" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Pieces ship on Thursdays, wrapped in last week's newspaper — or collect from the studio shelf
+      and we'll put the kettle on.
+    </p>
+  </section>
+
+  <!-- ============ CLASSES ============ -->
+  <section class="classes" id="classes">
+    <div class="section-head">
+      <span class="kicker reveal">[ Classes ]</span>
+      <h2 class="reveal">Learn the wheel. Keep what you make.</h2>
+      <svg class="squig draw" viewBox="0 0 220 12" aria-hidden="true"><path pathLength="1" class="s" d="M3 7 Q24 3 46 8 T92 7 T138 8 T184 7 Q200 6 217 8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      <p class="lede reveal">Eight wheels, one teacher, aprons provided. Clay, firing and your first
+        glaze are all included — you just bring hands and low expectations.</p>
+    </div>
+    <div class="class-grid">
+      {classes.map((c, i) => {
+        const left = c.seats - c.taken;
+        const soldOut = left === 0;
+        return (
+          <article class={`klass reveal ${soldOut ? 'soldout' : ''}`} style={`--d:${i * 0.12}s`}>
+            <div class="klass-top">
+              <span class="klass-date">{c.date}</span>
+              <span class={`level ${c.levelClass}`}>{c.level}</span>
+            </div>
+            <h3 class="serif">{c.name}</h3>
+            <p class="klass-desc">{c.desc}</p>
+            <div class="klass-meta">
+              <span><strong>{c.time}</strong></span>
+              <span>with {c.teacher}</span>
+              <span class="seats">
+                <span class="seat-dots" aria-hidden="true">
+                  {Array.from({ length: c.seats }).map((_, s) => (
+                    <span class={`seat ${s < c.taken ? 'taken' : ''}`}></span>
+                  ))}
+                </span>
+                <span class="seats-label">{soldOut ? 'full — waitlist open' : `${left} of ${c.seats} spots left`}</span>
+              </span>
+            </div>
+            <div class="klass-foot">
+              <span class="klass-price">{c.price} <small>/ seat</small></span>
+              <a class={`klass-cta ${soldOut ? 'waitlist' : ''}`} href="#visit">{c.cta}</a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+    <p class="class-note reveal"><strong>Full class?</strong> Join the waitlist and we'll save you a
+      wheel in the next run — most classes repeat every six weeks.</p>
+  </section>
+
+  <!-- ============ MAKERS ============ -->
+  <section class="makers" id="makers">
+    <div class="section-head">
+      <span class="kicker reveal">[ The makers ]</span>
+      <h2 class="reveal">Four of the twenty-three.</h2>
+      <p class="lede reveal">Every member stamps their mark into the foot of each piece — the same way
+        potters have signed work for a thousand years. Here's who threw this batch.</p>
+    </div>
+    <div class="maker-rows">
+      {makers.map((m, i) => (
+        <div class="maker reveal" style={`--d:${i * 0.08}s`}>
+          <span class="mark"><MakerMark kind={m.mark} /></span>
+          <div class="maker-id">
+            <span class="maker-name serif">{m.name}</span>
+            <span class="maker-spec">{m.spec}</span>
+          </div>
+          <p class="maker-bio">{m.bio}</p>
+          <span class="maker-pieces">in this batch<br/>{m.pieces}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ============ STUDIO ============ -->
+  <section class="studio" id="studio">
+    <div class="studio-grid">
+      <div class="studio-story">
+        <span class="kicker reveal">[ The studio ]</span>
+        <h2 class="reveal">A former print shop, four kilns, and no hurry at all.</h2>
+        <p class="reveal">We took the lease in 2019 with two wheels, a borrowed kiln and a theory:
+          that a city this size had more potters than benches. The print presses left good bones —
+          concrete floors that forgive dropped bats, north light that flatters nothing, and a
+          loading door wide enough for a kiln delivery nobody measured twice.</p>
+        <p class="reveal">Today the collective runs on a simple ledger: members keep 85% of every
+          sale, the rest keeps the kilns hot and the clay bin full. Decisions get made at the long
+          table on first Sundays, usually over whichever teapot survived the last glaze experiment.</p>
+        <p class="reveal">Firings run on a shared calendar — bisque midweek, glaze on Fridays —
+          and there is exactly one rule about the last inch of shelf space: ask.</p>
+      </div>
+      <div>
+        <div class="stats reveal" aria-label="Studio in numbers">
+          <div class="stat"><span class="s-num" data-to="23">0</span><span class="s-suf">members</span><span class="s-lbl">potters on the ledger</span></div>
+          <div class="stat"><span class="s-num" data-to="4">0</span><span class="s-suf">kilns</span><span class="s-lbl">two gas · two electric</span></div>
+          <div class="stat"><span class="s-num" data-to="61">0</span><span class="s-suf">firings</span><span class="s-lbl">last year, cone 04–10</span></div>
+          <div class="stat"><span class="s-num" data-to="1204">0</span><span class="s-suf">pieces</span><span class="s-lbl">sold since we opened</span></div>
+        </div>
+        <div class="bench reveal">
+          <h3 class="serif">Open bench, open shelves</h3>
+          <p>A wheel of your own, a wedging table, the glaze wall, and a shelf with your name
+            chalked on it. Access seven days a week, kiln space included.</p>
+          <div class="bench-foot">
+            <span class="bench-price">$140 <small>/ month · 3 benches free</small></span>
+            <a class="klass-cta" href="#visit">Book a bench</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISIT ============ -->
+  <section class="visit" id="visit">
+    <p class="kicker reveal">[ Visit ]</p>
+    <p class="visit-line reveal">Come put your hands in <em>the mud.</em></p>
+    <p class="visit-sub reveal">First visits are free and floury. Saturday mornings we prop the doors,
+      warm the teapot, and let you try a wheel before you commit to anything.</p>
+    <div class="reveal">
+      <a class="btn btn-primary" href="mailto:hello@kilncollective.example?subject=First%20visit">Plan a visit</a>
+    </div>
+    <div class="visit-hours reveal">
+      <span>UNIT 3 · 41 FETTLER'S YARD</span>
+      <span>TUE–FRI 10–18</span>
+      <span>SAT 9–17</span>
+      <span>SUN — KILNS ONLY</span>
+    </div>
+    <svg class="squig draw visit-squig" viewBox="0 0 220 12" aria-hidden="true"><path pathLength="1" class="s" d="M3 8 Q20 2 40 7 T80 7 T120 7 T160 7 T200 7 Q210 7 217 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="foot-top">
+    <span class="foot-brand">
+      <svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 26 Q4 9 15 8 Q26 9 25 26 Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 26 q0 -8 4 -8 q4 0 4 8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      Kiln Collective
+    </span>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#shop">Shop</a><a href="#classes">Classes</a><a href="#makers">Makers</a><a href="#studio">Studio</a><a href={`${base}guide/`}>Guide</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Kiln Collective — a design-showcase concept, not a real shop.</span>
+    <span>Designed &amp; built by Fable · <a href={`${base}guide/`}>How this was built →</a></span>
+  </div>
+</footer>
+
+<script>
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* hero intro */
+  const hero = document.querySelector('.hero');
+  if (hero) requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('loaded')));
+
+  /* counters */
+  const fmt = (n, dec) => (dec ? n.toFixed(dec) : Math.round(n).toLocaleString('en-US'));
+  function runCounter(el) {
+    const to = parseFloat(el.dataset.to || '0');
+    const dec = parseInt(el.dataset.dec || '0', 10);
+    if (reduced) { el.textContent = fmt(to, dec); return; }
+    const dur = 1900, t0 = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 4); // unhurried settle
+    const step = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = fmt(to * ease(p), dec);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  /* reveals + hand-drawn draw-on */
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      const el = e.target;
+      el.classList.add('is-in');
+      if (el.classList.contains('draw') && !reduced) {
+        el.querySelectorAll('.s').forEach((path, i) => {
+          path.style.transitionDelay = `${i * 0.16}s`;
+        });
+      }
+      if (el.classList.contains('stats')) {
+        el.querySelectorAll('.s-num').forEach(runCounter);
+      }
+      io.unobserve(el);
+    }
+  }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+
+  document.querySelectorAll('.reveal, .draw, .stats').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>

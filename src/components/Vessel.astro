@@ -1,0 +1,67 @@
+---
+// Hand-drawn-style vessel illustrations. Every visible stroke path carries
+// pathLength="1" + class="s" so CSS can draw it on with stroke-dashoffset.
+// Wobble is deliberate: curves are slightly asymmetric, like a real throw.
+const { kind, title } = Astro.props;
+---
+{kind === 'moonjar' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M84 44 C56 55 40 86 44 120 C48 156 71 182 101 181 C133 180 156 151 154 116 C152 84 137 54 115 44 Z" fill="rgba(198,93,59,.10)" stroke="none"/>
+  <path pathLength="1" class="s" d="M83 40 Q100 33 117 41" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M84 44 C56 55 40 86 44 120 C48 156 71 182 101 181 C133 180 156 151 154 116 C152 84 137 54 115 44" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M60 78 Q84 68 106 74 Q128 80 143 72" fill="none" stroke="#8a9b7a" stroke-width="2.2" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M72 110 l4 1 M96 122 l4 1 M124 104 l4 1 M86 150 l4 1 M120 142 l4 1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
+{kind === 'pitcher' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M70 52 C60 78 54 108 58 138 C61 161 74 174 98 174 C122 174 135 160 138 138 C142 108 136 78 126 52 Z" fill="rgba(122,74,46,.10)" stroke="none"/>
+  <path pathLength="1" class="s" d="M72 48 L56 36 Q66 30 80 34" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M80 34 Q100 28 124 36 Q127 42 126 50" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M70 52 C60 78 54 108 58 138 C61 161 74 174 98 174 C122 174 135 160 138 138 C142 108 136 78 126 52" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M126 62 Q156 70 154 96 Q152 118 134 122" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M64 96 Q92 88 118 94 Q132 97 137 94" fill="none" stroke="#c65d3b" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
+{kind === 'mugs' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M40 84 Q39 128 44 146 Q47 158 62 158 L86 158 Q98 157 100 146 Q104 126 103 84 Z" fill="rgba(138,155,122,.12)" stroke="none"/>
+  <path pathLength="1" class="s" d="M104 70 Q103 118 108 138 Q111 150 126 150 L150 150 Q162 149 164 138 Q169 116 167 70" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M104 70 Q136 63 167 70" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M167 88 Q188 90 186 106 Q184 122 166 122" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M40 84 Q39 128 44 146 Q47 158 62 158 L86 158 Q98 157 100 146 Q104 126 103 84" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M40 84 Q71 77 103 84" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M40 100 Q22 102 24 118 Q26 134 43 133" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M52 120 q10 -4 20 0 M120 112 q12 -5 24 0" fill="none" stroke="#c65d3b" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
+{kind === 'bowls' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M36 96 Q38 136 64 148 Q84 157 102 156 Q128 154 144 138 Q158 122 158 96 Z" fill="rgba(198,93,59,.09)" stroke="none"/>
+  <path pathLength="1" class="s" d="M36 96 Q98 108 158 96 Q158 124 142 139 Q122 156 98 156 Q72 156 54 141 Q37 126 36 96" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M52 84 Q98 94 146 84" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M66 72 Q99 80 134 72" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M78 172 Q99 176 122 172" fill="none" stroke="#8a9b7a" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
+{kind === 'budvase' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M93 84 C74 92 62 110 63 132 C64 156 80 170 100 170 C120 170 136 156 137 132 C138 110 126 92 107 84 Z" fill="rgba(138,155,122,.13)" stroke="none"/>
+  <path pathLength="1" class="s" d="M93 46 Q92 68 93 84 C74 92 62 110 63 132 C64 156 80 170 100 170 C120 170 136 156 137 132 C138 110 126 92 107 84 Q108 68 107 46" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M91 44 Q100 40 109 44" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M100 44 Q102 24 118 14" fill="none" stroke="#5a6b4d" stroke-width="2.2" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M111 26 q6 -8 14 -8 q-2 9 -11 12 M106 34 q-8 -3 -10 -10 q9 -1 12 6" fill="none" stroke="#5a6b4d" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M76 124 Q99 132 124 124" fill="none" stroke="#c65d3b" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
+{kind === 'plates' && (
+<svg viewBox="0 0 200 200" role="img" aria-label={title} class="draw">
+  <path class="tint" d="M42 118 Q100 130 158 118 L154 142 Q100 152 46 142 Z" fill="rgba(122,74,46,.10)" stroke="none"/>
+  <path pathLength="1" class="s" d="M42 118 Q100 130 158 118 Q160 132 154 142 Q100 153 46 142 Q40 132 42 118" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path pathLength="1" class="s" d="M50 106 Q100 116 150 106" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M56 94 Q100 103 144 94" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M63 82 Q100 90 137 82" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M70 70 Q100 77 130 70" fill="none" stroke="#c65d3b" stroke-width="2.2" stroke-linecap="round"/>
+  <path pathLength="1" class="s" d="M72 160 Q100 165 128 160" fill="none" stroke="#8a9b7a" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
+)}
