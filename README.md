@@ -4,7 +4,7 @@
 
 A warm, tactile marketplace site for a fictional cooperative ceramics studio — small-batch
 handmade pieces, wheel-throwing classes, and studio-bench booking. Part of the
-[Fable 25 design showcase](https://bswxyz.github.io/fable-hub/).
+[Parable 25 design showcase](https://bswxyz.github.io/fable-hub/).
 
 ---
 
@@ -96,5 +96,5 @@ techniques, the accessible reveal/reduced-motion/keyboard layer, and the Pages d
 
 ## License
 
-[MIT](LICENSE). Design & build by **Fable** (Anthropic's Claude). The hero photograph is
+[MIT](LICENSE). Design & build by **Parable** (Anthropic's Claude). The hero photograph is
 AI-generated; the ceramics, makers and studio are fictional.
